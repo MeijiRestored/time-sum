@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  // Initialize rows
+
   const ROWS = 4;
   const timerows = $('#time-rows');
 
@@ -14,14 +16,35 @@ $(document).ready(function () {
     timerows.append(row);
   }
 
+  /**
+   * Clamps a given value between a specified minimum and maximum range.
+   *
+   * @param {number} value - The value to be clamped.
+   * @param {number} min - The minimum allowable value.
+   * @param {number} max - The maximum allowable value.
+   * @returns {number} - The clamped value, constrained within the min and max range.
+   */
   function clampValue(value, min, max) {
     return Math.min(Math.max(value, min), max);
   }
 
+  /**
+   * Pads a given value with leading zeros to ensure it reaches a specified length.
+   *
+   * @param {number|string} value - The value to be padded.
+   * @param {number} length - The desired length of the resulting string.
+   * @returns {string} - The padded string representation of the value.
+   */
   function padValue(value, length) {
     return String(value).padStart(length, '0');
   }
 
+  /**
+   * Parses the time values from a given row element and converts them into total milliseconds.
+   *
+   * @param {HTMLElement} row - The DOM element containing time input fields.
+   * @returns {number} - The total time in milliseconds calculated from the input values.
+   */
   function parseTime(row) {
     const hours = clampValue(parseInt($(row).find('.hours').val()) || 0, 0, 999);
     const minutes = clampValue(parseInt($(row).find('.minutes').val()) || 0, 0, 59);
@@ -31,6 +54,12 @@ $(document).ready(function () {
     return (hours * 3600 + minutes * 60 + seconds) * 1000 + milliseconds;
   }
 
+  /**
+   * Converts a time duration from milliseconds into a formatted string.
+   *
+   * @param {number} ms - The time duration in milliseconds.
+   * @returns {string} - The formatted time string in "HH:MM:SS.mmm" format.
+   */
   function formatTime(ms) {
     const hours = Math.floor(ms / 3600000);
     ms %= 3600000;
@@ -41,6 +70,8 @@ $(document).ready(function () {
 
     return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
   }
+
+  // Listeners
 
   $('#add-row').click(function () {
     timerows.append(row);
