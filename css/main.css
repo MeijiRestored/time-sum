@@ -1,0 +1,113 @@
+@font-face {
+  font-family: "Rodin";
+  src: url("../assets/Rodin.otf");
+}
+
+* {
+  font-family: Rodin, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #86939A;
+}
+
+.container {
+  background: #565f64;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+}
+
+h1 {
+  text-shadow: 3px 0 0 #2a2c2a, -3px 0 0 #2a2c2a, 0 3px 0 #2a2c2a, 0 -3px 0 #2a2c2a, 2px 2px #2a2c2a, -2px -2px 0 #2a2c2a, 2px -2px 0 #2a2c2a, -2px 2px 0 #2a2c2a;
+  margin-bottom: 20px;
+}
+
+.time-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.time-input {
+  color: #ffffff;
+  background: #303234;
+  text-shadow: 3px 0 0 #2a2c2a, -3px 0 0 #2a2c2a, 0 3px 0 #2a2c2a, 0 -3px 0 #2a2c2a, 2px 2px #2a2c2a, -2px -2px 0 #2a2c2a, 2px -2px 0 #2a2c2a, -2px 2px 0 #2a2c2a;
+  width: 50px;
+  padding: 5px;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 10px;
+  border: 2px solid #9ca1a6;
+}
+
+.hours, .minutes, .seconds {
+  width: 2.75em;
+}
+
+.milliseconds {
+  width: 3.75em;
+}
+
+button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 2px solid #9ca1a6;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.remove-row {
+  background-color: #f44336;
+  color: white;
+}
+
+#result {
+  filter: drop-shadow(1px 0 0 #2a2c2a) drop-shadow(-1px 0 0 #2a2c2a) drop-shadow(0 1px 0 #2a2c2a) drop-shadow(0 -1px 0 #2a2c2a) drop-shadow(1px 1px #2a2c2a) drop-shadow(-1px -1px 0 #2a2c2a) drop-shadow(1px -1px 0 #2a2c2a) drop-shadow(-1px 1px 0 #2a2c2a);
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#result #total-time {
+  background-color: #F9FFA3;
+  background-image: linear-gradient(0deg, #FBFF56, #FBFFAC);
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 2px;
+}
+
+#add-row {
+  margin-bottom: 12px;
+  padding: 4px;
+  width: 100%;
+  background-color: #888888;
+  border: 4px dashed #666666;
+  font-size: 110%;
+  border-radius: 10px;
+}
+
+#add-row:hover {
+  background-color: #777777;
+}
+
+#add-row:active {
+  background-color: #666666;
+}
+
+#calculate {
+  background-color: #2196F3;
+  color: white;
+  margin-left: 10px;
+}
