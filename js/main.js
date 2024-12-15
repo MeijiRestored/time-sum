@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  const STORAGE_KEY = "timeCalculatorRows";
+
   // Initialize rows
 
   const ROWS = 4;
@@ -10,11 +12,7 @@ $(document).ready(function () {
     <input type="number" class="time-input seconds" placeholder="SS" min="0" max="59">.
     <input type="number" class="time-input milliseconds" placeholder="mmm" min="0" max="999">
     <button class="remove-row">Remove</button>
-  </div>`
-
-  for (let i = 0; i < ROWS; i++) {
-    timerows.append(row);
-  }
+  </div>`;
 
   /**
    * Clamps a given value between a specified minimum and maximum range.
@@ -71,14 +69,64 @@ $(document).ready(function () {
     return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
   }
 
+  function saveState() {
+    const rows = [];
+    $('.time-row').each(function () {
+      rows.push({
+        hours: $(this).find('.hours').val() || '',
+        minutes: $(this).find('.minutes').val() || '',
+        seconds: $(this).find('.seconds').val() || '',
+        milliseconds: $(this).find('.milliseconds').val() || ''
+      });
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(rows));
+  }
+
+  function restoreState() {
+    const rows = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+    timerows.empty();
+
+    rows.forEach(row => {
+      const rowHtml = `<div class="time-row">
+        <input type="number" class="time-input hours" placeholder="HH" min="0" max="999" value="${row.hours}"> : 
+        <input type="number" class="time-input minutes" placeholder="MM" min="0" max="59" value="${row.minutes}"> : 
+        <input type="number" class="time-input seconds" placeholder="SS" min="0" max="59" value="${row.seconds}">.
+        <input type="number" class="time-input milliseconds" placeholder="mmm" min="0" max="999" value="${row.milliseconds}">
+        <button class="remove-row">Remove</button>
+      </div>
+      `;
+      $('#time-rows').append(rowHtml);
+    });
+
+    if (rows.length === 0) {
+      for (let i = 0; i < ROWS; i++) {
+        timerows.append(row);
+      }
+    } else {
+      $('#calculate').trigger('click');
+    }
+  }
+
+  function clearAll() {
+    localStorage.removeItem(STORAGE_KEY);
+    timerows.empty();
+    for (let i = 0; i < ROWS; i++) {
+      timerows.append(row);
+    }
+    $('#total-time').text('00:00:00.000');
+  }
+
   // Listeners
 
   $('#add-row').click(function () {
     timerows.append(row);
+    saveState();
   });
 
   timerows.on('click', '.remove-row', function () {
     $(this).closest('.time-row').remove();
+    saveState();
   });
 
   timerows.on('input', '.time-input', function () {
@@ -98,6 +146,7 @@ $(document).ready(function () {
     }
 
     $(this).val(paddedValue);
+    saveState();
   });
 
   $('#calculate').click(function () {
@@ -109,4 +158,10 @@ $(document).ready(function () {
 
     $('#total-time').text(formatTime(totalMilliseconds));
   });
+
+  $('#clear-all').click(function () {
+    clearAll();
+  });
+
+  restoreState();
 });
