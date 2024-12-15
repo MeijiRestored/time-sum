@@ -69,6 +69,12 @@ $(document).ready(function () {
     return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
   }
 
+  /**
+   * Saves the current state of all time rows to local storage.
+   * Iterates over each time row, collects the input values for hours,
+   * minutes, seconds, and milliseconds, and stores them as a JSON string
+   * under the specified storage key.
+   */
   function saveState() {
     const rows = [];
     $('.time-row').each(function () {
@@ -82,6 +88,12 @@ $(document).ready(function () {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(rows));
   }
 
+  /**
+   * Iterates over each row object from local stoage and appends a corresponding HTML
+   * structure to the '#time-rows' container. If no rows are present, initializes the
+   * container with a default number of empty time rows. Triggers the 'calculate'
+   * button click event if rows are present.
+   */
   function restoreState() {
     const rows = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
@@ -108,6 +120,12 @@ $(document).ready(function () {
     }
   }
 
+  /**
+   * Clears all time rows and resets the total time display.
+   * Removes the stored time rows from local storage, empties the
+   * current time rows container, appends a default number of empty
+   * time rows, and resets the total time display to "00:00:00.000".
+   */
   function clearAll() {
     localStorage.removeItem(STORAGE_KEY);
     timerows.empty();
