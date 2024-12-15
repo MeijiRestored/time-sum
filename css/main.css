@@ -68,11 +68,6 @@ button {
   cursor: pointer;
 }
 
-.remove-row {
-  background-color: #f44336;
-  color: #ffffff;
-}
-
 #result {
   filter: drop-shadow(1px 0 0 #2a2c2a) drop-shadow(-1px 0 0 #2a2c2a) drop-shadow(0 1px 0 #2a2c2a) drop-shadow(0 -1px 0 #2a2c2a) drop-shadow(1px 1px #2a2c2a) drop-shadow(-1px -1px 0 #2a2c2a) drop-shadow(1px -1px 0 #2a2c2a) drop-shadow(-1px 1px 0 #2a2c2a);
   margin-top: 20px;
@@ -112,7 +107,23 @@ button {
   margin-left: 10px;
 }
 
-#clear-all {
+#calculate:hover {
+  background-color: #1f83d2;
+}
+
+#calculate:active {
+  background-color: #1a70b4;
+}
+
+.remove-row, #clear-all {
   background-color: #f44336;
   color: #ffffff;
+}
+
+.remove-row:hover, #clear-all:hover {
+  background-color: #d2392e;
+}
+
+.remove-row:active, #clear-all:active {
+  background-color: #af3128;
 }
